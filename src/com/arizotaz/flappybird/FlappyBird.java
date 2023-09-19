@@ -1,5 +1,8 @@
 package com.arizotaz.flappybird;
 
+import java.io.File;
+
+import com.arizotaz.gameacc.KeyManager;
 import com.arizotaz.lotus.Lotus;
 import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.Text;
@@ -13,8 +16,14 @@ public class FlappyBird extends Process {
 	private Window window;
 	
 	private Bird bird;
+	private Pipe pipe;
 	
 	private float renderScaling = 0;
+	
+	private KeyManager keyManager;
+	
+	private float parallax = 0;
+	
 	
 	@Override
 	public void Start() {
@@ -33,8 +42,24 @@ public class FlappyBird extends Process {
 		TextureEngine.AddToGlobalList("background", "com/arizotaz/flappybird/assets/background.png");
 		TextureEngine.AddToGlobalList("bird", "com/arizotaz/flappybird/assets/bird.png");
 		TextureEngine.AddToGlobalList("pipe", "com/arizotaz/flappybird/assets/pipe_up.png");
+				
+		keyManager = new KeyManager(window);
+		
+		File file = new File(new File("").getAbsolutePath()+"/keys");
+		if (file.exists()) {
+			keyManager.LoadFromFile(file);
+		} else {
+			keyManager.RegisterKey("bird.jump", 32);//Space
+			keyManager.RegisterKey("bird.jump", 87);//W
+			keyManager.RegisterKey("bird.jump", 265);//Up Arrrow
+			keyManager.SaveToFile(file);
+		}
+		
+		
 		
 		bird = new Bird();
+		pipe = new Pipe(15,6,4);
+
 	}
 
 	@Override
@@ -43,26 +68,33 @@ public class FlappyBird extends Process {
 		window.Process();
 		
 		
+		this.parallax += 1f*(window.Time().DeltaTime()/1000);
+		
 		//Process
 		bird.Tick();
 
+		pipe.Tick();
 		
 		
 		//Draw
 		
 		RenderObjects.SetColor(255);
-		RenderObjects.DrawImage("background",0, 0, window.CanvasWidth(), window.CanvasHeight(), 0);
+		int bgsize = 512;
+		if (TextureEngine.GetGlobalTexture("backgrouund") != null) {
+			bgsize = TextureEngine.GetGlobalTexture("backgrouund").Width();
+		}
+		RenderObjects.DrawImageFromSheet("background",0, 0, window.CanvasWidth(), window.CanvasHeight(), parallax, 0, 1, bgsize, 0);
 		
 		//window.renderscale is the windows DPI
 		
-		renderScaling = window.CanvasWidth()/20;
+		renderScaling = window.CanvasHeight()/15;
 
 		
 		//Create padding
 		window.Translate().Move(-window.CanvasWidth()/2+renderScaling, -window.CanvasHeight()/2+renderScaling/2);
 
 		
-		
+		pipe.Render();
 		bird.Render();
 		
 		
@@ -101,6 +133,23 @@ public class FlappyBird extends Process {
 	}
 	public float RS() {
 		return RenderScale();
+	}
+	
+	public KeyManager KeyManager() {
+		return this.keyManager;
+	}
+
+	public Bird Bird() {
+		return this.bird;
+	}
+
+	public void AddPoint() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void Lose() {
+		this.QuitProcess();
 	}
 	
 }

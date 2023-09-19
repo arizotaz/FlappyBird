@@ -1,10 +1,11 @@
 package com.arizotaz.flappybird;
 
+import com.arizotaz.gameacc.BoxCollider2D;
+import com.arizotaz.gameacc.KeyManager;
 import com.arizotaz.lotus.Lotus;
 import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.struc.Vector2;
 import com.arizotaz.lotus.utils.Tools;
-import com.arizotaz.lotus.window.KeyboardInput;
 import com.arizotaz.lotus.window.Window;
 
 public class Bird {
@@ -13,22 +14,22 @@ public class Bird {
 	private FlappyBird process;
 	//Window Instance
 	private Window window;
-	//Window keyboard Listener
-	private KeyboardInput kbi;
+	//Key Manager
+	private KeyManager kbi;
 	//Is key down?
 	private boolean keyDown = false;
 
 	
 	//Size of the bird on screen
-	private float birdSize;
+	private float birdSize = 0;
 	
 	
 	//position and force values
 	private float x = 0, y = 0;
 	private float forceX = 0,forceY = 0;
-	private float gravity = 9.5f*500f;
+	private float gravity = 9.5f*4;
 	
-	
+	private BoxCollider2D collider;	
 	
 	public Bird() {
 		//Store the flappybird host process
@@ -37,15 +38,22 @@ public class Bird {
 		//Grab the current window
 		window = Lotus.singleton.WindowManager().GetCurrentWindow();
 		
-		//Get input from that window
-		kbi = window.KeyboardInput();
+		//Gets keymanager
+		kbi = process.KeyManager();
 				
 		x = 0;
-		y = 700;
+		y = 100;
+		
+		collider = new BoxCollider2D(x,y,birdSize,birdSize);
 	}
 	
 	//Game Processing
 	public void Tick() {
+		//Set Bird Size
+		birdSize = 1f;
+		
+		//Update Collider Size
+		collider.SetSize(birdSize, birdSize*(4f/5f));
 		
 		//Store deltaTime so we do not need to do the calculation over and over again
 		float deltaTime = window.Time().DeltaTime()/1000;
@@ -55,7 +63,7 @@ public class Bird {
 		
 		
 		//Keyboard input
-		if (kbi.IsKeyDown(32) || kbi.IsKeyDown(265)) {
+		if (kbi.KeyDown("bird.jump")) {
 			// If keys are not down
 			if (!keyDown) {
 				
@@ -71,25 +79,24 @@ public class Bird {
 		
 		// Add Forces With deltatime so that force is applied evenly between frames
 		x += forceX * deltaTime;
-		y += forceY * deltaTime;
-		
+		y += forceY * deltaTime;		
 		
 		// Set the smallest x value
 		y = Tools.SetSmallest(y, 0);
 		//if bird is on the floor, clear force value
 		if (y <= 0) { forceY = 0; }
 		
+		collider.SetPosition(x, y);
+		
 		
 	}
 	
 	//Draw to screen
 	public void Render() {
-		//
-		birdSize = process.RenderScale();
 		
 		//RenderBird
 		RenderObjects.SetColor(255);
-		RenderObjects.DrawImage("bird", x, y, birdSize, birdSize*(4f/5f), Rotation(), false, true);
+		RenderObjects.DrawImage("bird", collider.x()*process.RenderScale(), collider.y()*process.RenderScale(), collider.w()*process.RenderScale(), collider.h()*process.RenderScale(), Rotation(), false, true);
 	}
 	
 	//Get the render rotation of the bird
@@ -110,9 +117,12 @@ public class Bird {
 	
 	private void Jump() {
 		//Jump force is not special, it was found by trial and error
-		forceY += 1000;
+		forceY += 10;
 	}
 	
+	public BoxCollider2D Collider() {
+		return this.collider;
+	}
 	
 	// Get Position
 	public Vector2 Position() {
