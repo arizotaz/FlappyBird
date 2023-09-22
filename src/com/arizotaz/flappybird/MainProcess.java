@@ -2,6 +2,11 @@ package com.arizotaz.flappybird;
 
 import java.io.File;
 
+import com.arizotaz.flappybird.decor.FlappyBirdWindowTheme;
+import com.arizotaz.flappybird.game.Game;
+import com.arizotaz.flappybird.menus.GameRender;
+import com.arizotaz.flappybird.menus.LoseMenu;
+import com.arizotaz.flappybird.menus.MainMenu;
 import com.arizotaz.gameacc.KeyManager;
 import com.arizotaz.lotus.Font;
 import com.arizotaz.lotus.Lotus;
@@ -16,7 +21,7 @@ import com.arizotaz.lotus.ui.elements.Element;
 import com.arizotaz.lotus.ui.elements.ElementRenderer;
 import com.arizotaz.lotus.window.Window;
 
-public class FlappyBird extends Process {
+public class MainProcess extends Process {
 
 	private Window window;
 	private Game game;

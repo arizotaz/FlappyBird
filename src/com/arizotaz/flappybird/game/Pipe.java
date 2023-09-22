@@ -1,5 +1,6 @@
-package com.arizotaz.flappybird;
+package com.arizotaz.flappybird.game;
 
+import com.arizotaz.flappybird.MainProcess;
 import com.arizotaz.gameacc.BoxCollider2D;
 import com.arizotaz.lotus.Lotus;
 import com.arizotaz.lotus.RenderObjects;
@@ -7,7 +8,7 @@ import com.arizotaz.lotus.window.Window;
 
 public class Pipe {
 	
-	private FlappyBird process;
+	private MainProcess process;
 	private Game game;
 	private Window window;
 
@@ -23,7 +24,7 @@ public class Pipe {
 	
 	private float x, y, mouthSize = 0;
 	public Pipe(float x, float y, float mouthSize) {
-		process = (FlappyBird) Lotus.singleton.ProcessManager().GetCurrentProces();
+		process = (MainProcess) Lotus.singleton.ProcessManager().GetCurrentProces();
 		window = Lotus.singleton.WindowManager().GetCurrentWindow();
 		game = process.Game();
 		bird = game.Bird();

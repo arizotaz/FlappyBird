@@ -1,5 +1,7 @@
-package com.arizotaz.flappybird;
+package com.arizotaz.flappybird.menus;
 
+import com.arizotaz.flappybird.MainProcess;
+import com.arizotaz.flappybird.decor.FlappyBirdWindowTheme;
 import com.arizotaz.lotus.Lotus;
 import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.Text;
@@ -10,7 +12,6 @@ import com.arizotaz.lotus.ui.Menu;
 import com.arizotaz.lotus.ui.elements.Button;
 import com.arizotaz.lotus.ui.elements.Element;
 import com.arizotaz.lotus.ui.elements.ElementRenderer;
-import com.arizotaz.lotus.ui.elements.Image;
 import com.arizotaz.lotus.ui.elements.Panel;
 import com.arizotaz.lotus.ui.elements.TextDisplay;
 import com.arizotaz.lotus.window.Window;
@@ -18,7 +19,7 @@ import com.arizotaz.lotus.window.Window;
 public class MainMenu extends Menu {
 
 	private Window window;
-	private FlappyBird process;
+	private MainProcess process;
 	private ElementRenderer elm;
 	private Button startButton;
 	private Button optionsButton;
@@ -37,7 +38,7 @@ public class MainMenu extends Menu {
 	@Override
 	public void Open() {
 		this.window = Lotus.singleton.WindowManager().GetCurrentWindow();
-		process = (FlappyBird) Lotus.singleton.ProcessManager().GetCurrentProces();
+		process = (MainProcess) Lotus.singleton.ProcessManager().GetCurrentProces();
 		
 		elm = process.ElementRenderer();
 		

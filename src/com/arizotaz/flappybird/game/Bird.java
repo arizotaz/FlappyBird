@@ -1,5 +1,6 @@
-package com.arizotaz.flappybird;
+package com.arizotaz.flappybird.game;
 
+import com.arizotaz.flappybird.MainProcess;
 import com.arizotaz.gameacc.BoxCollider2D;
 import com.arizotaz.gameacc.KeyManager;
 import com.arizotaz.lotus.Lotus;
@@ -11,7 +12,7 @@ import com.arizotaz.lotus.window.Window;
 public class Bird {
 
 	//Flappy Bird Host Process
-	private FlappyBird process;
+	private MainProcess process;
 	//Window Instance
 	private Window window;
 	//Key Manager
@@ -37,7 +38,7 @@ public class Bird {
 	
 	public Bird() {
 		//Store the flappybird host process
-		process = (FlappyBird) Lotus.singleton.ProcessManager().GetCurrentProces();
+		process = (MainProcess) Lotus.singleton.ProcessManager().GetCurrentProces();
 		
 		//Grab the current window
 		window = Lotus.singleton.WindowManager().GetCurrentWindow();

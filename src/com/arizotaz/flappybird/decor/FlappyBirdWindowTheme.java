@@ -1,4 +1,4 @@
-package com.arizotaz.flappybird;
+package com.arizotaz.flappybird.decor;
 
 import com.arizotaz.lotus.ui.elements.Element;
 import com.arizotaz.lotus.window.Window;

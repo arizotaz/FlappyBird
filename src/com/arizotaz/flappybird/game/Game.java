@@ -1,7 +1,8 @@
-package com.arizotaz.flappybird;
+package com.arizotaz.flappybird.game;
 
 import java.util.ArrayList;
 
+import com.arizotaz.flappybird.MainProcess;
 import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.Text;
 import com.arizotaz.lotus.UserSettings;
@@ -12,7 +13,7 @@ import com.arizotaz.lotus.window.Window;
 public class Game {
 	private Window window;
 	private Bird bird;
-	private FlappyBird process;
+	private MainProcess process;
 
 	private float renderScaling = 0;
 	private float parallax = 0;
@@ -24,7 +25,7 @@ public class Game {
 	private float gameSpeed = 1;
 	private int points = 0;
 	
-	public Game(Window window, FlappyBird flappyBird) {
+	public Game(Window window, MainProcess flappyBird) {
 		this.window = window;
 		this.process = flappyBird;
 		

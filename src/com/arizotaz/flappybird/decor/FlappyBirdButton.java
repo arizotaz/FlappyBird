@@ -1,4 +1,4 @@
-package com.arizotaz.flappybird;
+package com.arizotaz.flappybird.decor;
 
 import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.Text;

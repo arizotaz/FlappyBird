@@ -22,7 +22,7 @@ public class Main {
 		lotus.Init();
 		
 		//AddProcess
-		lotus.AddProcess(new FlappyBird());
+		lotus.AddProcess(new MainProcess());
 		
 		//Start
 		lotus.Start();
