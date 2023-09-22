@@ -8,6 +8,7 @@ import com.arizotaz.lotus.window.Window;
 public class Pipe {
 	
 	private FlappyBird process;
+	private Game game;
 	private Window window;
 
 	private BoxCollider2D good;
@@ -24,8 +25,8 @@ public class Pipe {
 	public Pipe(float x, float y, float mouthSize) {
 		process = (FlappyBird) Lotus.singleton.ProcessManager().GetCurrentProces();
 		window = Lotus.singleton.WindowManager().GetCurrentWindow();
-		
-		bird = process.Bird();
+		game = process.Game();
+		bird = game.Bird();
 		
 		this.x = x;
 		this.y = y;
@@ -37,20 +38,20 @@ public class Pipe {
 	public void Tick() {
 		float pipeWidth = 2,pipeHeight = 10;
 		
-		x -= pipeSpeed*(window.Time().DeltaTime()/1000);
 		
-		topPipe = 	new BoxCollider2D(x, (y+mouthSize/2+pipeHeight/2), pipeWidth, pipeHeight);
-		bottomPipe= new BoxCollider2D(x, (y-mouthSize/2-pipeHeight/2), pipeWidth, pipeHeight);
-		good = 		new BoxCollider2D(x, y,pipeWidth,mouthSize);
+		
+		topPipe = 	new BoxCollider2D((x-game.xDistance()), (y+mouthSize/2+pipeHeight/2), pipeWidth, pipeHeight);
+		bottomPipe= new BoxCollider2D((x-game.xDistance()), (y-mouthSize/2-pipeHeight/2), pipeWidth, pipeHeight);
+		good = 		new BoxCollider2D((x-game.xDistance()), y,pipeWidth,mouthSize);
 		
 		if (topPipe.IsColliding(bird.Collider()) || bottomPipe.IsColliding(bird.Collider())) {
 			//Dead
-			process.Lose();
+			game.Lose();
 		}
 		if (good.IsColliding(bird.Collider()) && !collected) {
 			collected = true;
 			//add Point
-			process.AddPoint();
+			game.AddPoint();
 
 		}
 		
@@ -62,10 +63,14 @@ public class Pipe {
 		RenderObjects.SetColor(255);
 		
 		//Top Pipe
-		RenderObjects.DrawImage("pipe", x*process.RenderScale(), (y+pipeHeight/2+mouthSize/2)*process.RenderScale(), pipeWidth*process.RenderScale(), pipeHeight*process.RenderScale(), 180, false, true);
+		RenderObjects.DrawImage("pipe", (x-game.xDistance())*game.RenderScale(), (y+pipeHeight/2+mouthSize/2)*game.RenderScale(), pipeWidth*game.RenderScale(), pipeHeight*game.RenderScale(), 180, false, true);
 		
 		//Bottom Pipe
-		RenderObjects.DrawImage("pipe", x*process.RenderScale(), (y-pipeHeight/2-mouthSize/2)*process.RenderScale(), pipeWidth*process.RenderScale(), pipeHeight*process.RenderScale(), 0, false, true);
+		RenderObjects.DrawImage("pipe", (x-game.xDistance())*game.RenderScale(), (y-pipeHeight/2-mouthSize/2)*game.RenderScale(), pipeWidth*game.RenderScale(), pipeHeight*game.RenderScale(), 0, false, true);
 
+	}
+	
+	public boolean HasPast() {
+		return (x-game.xDistance()) < -3;
 	}
 }

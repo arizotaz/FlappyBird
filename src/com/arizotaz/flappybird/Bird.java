@@ -18,6 +18,8 @@ public class Bird {
 	private KeyManager kbi;
 	//Is key down?
 	private boolean keyDown = false;
+	//Game Instance
+	private Game game;
 
 	
 	//Size of the bird on screen
@@ -31,6 +33,8 @@ public class Bird {
 	
 	private BoxCollider2D collider;	
 	
+	private boolean freed = false;
+	
 	public Bird() {
 		//Store the flappybird host process
 		process = (FlappyBird) Lotus.singleton.ProcessManager().GetCurrentProces();
@@ -38,11 +42,14 @@ public class Bird {
 		//Grab the current window
 		window = Lotus.singleton.WindowManager().GetCurrentWindow();
 		
+		//Grab Game
+		game = process.Game();
+		
 		//Gets keymanager
 		kbi = process.KeyManager();
 				
 		x = 0;
-		y = 100;
+		y = 7;
 		
 		collider = new BoxCollider2D(x,y,birdSize,birdSize);
 	}
@@ -64,6 +71,7 @@ public class Bird {
 		
 		//Keyboard input
 		if (kbi.KeyDown("bird.jump")) {
+			freed = true;
 			// If keys are not down
 			if (!keyDown) {
 				
@@ -76,15 +84,21 @@ public class Bird {
 			keyDown = false;
 		}
 		
+		if (!Freed()) {
+			forceX = 0;
+			forceY = 0;
+		}
 		
 		// Add Forces With deltatime so that force is applied evenly between frames
 		x += forceX * deltaTime;
 		y += forceY * deltaTime;		
 		
 		// Set the smallest x value
-		y = Tools.SetSmallest(y, 0);
+		y = Tools.ClampVar(y, 0, 14);
 		//if bird is on the floor, clear force value
-		if (y <= 0) { forceY = 0; }
+		if (y <= 0) { forceY = 0;game.Lose(); }
+		if (y >= 14) { forceY = 0; }
+
 		
 		collider.SetPosition(x, y);
 		
@@ -96,7 +110,7 @@ public class Bird {
 		
 		//RenderBird
 		RenderObjects.SetColor(255);
-		RenderObjects.DrawImage("bird", collider.x()*process.RenderScale(), collider.y()*process.RenderScale(), collider.w()*process.RenderScale(), collider.h()*process.RenderScale(), Rotation(), false, true);
+		RenderObjects.DrawImage("bird", collider.x()*game.RenderScale(), collider.y()*game.RenderScale(), collider.w()*game.RenderScale(), collider.h()*game.RenderScale(), Rotation(), false, true);
 	}
 	
 	//Get the render rotation of the bird
@@ -127,6 +141,10 @@ public class Bird {
 	// Get Position
 	public Vector2 Position() {
 		return new Vector2(x,y);
+	}
+	
+	public boolean Freed() {
+		return this.freed;
 	}
 	
 }
