@@ -10,6 +10,7 @@ import com.arizotaz.flappybird.menus.MainMenu;
 import com.arizotaz.gameacc.KeyManager;
 import com.arizotaz.lotus.Font;
 import com.arizotaz.lotus.Lotus;
+import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.Text;
 import com.arizotaz.lotus.UserSettings;
 import com.arizotaz.lotus.managers.WindowManager;
@@ -42,13 +43,18 @@ public class MainProcess extends Process {
 		window.IdleFps(15);
 		
 		
-		if (!UserSettings.Exists("window.fullscreen")) { UserSettings.SetBoolean("window.fullscreen",false); }
-		window.Fullscreen(UserSettings.GetBoolean("window.fullscreen"));
 		
 		if (Lotus.singleton.ArgumentExists("-fullscreen")) {
-			window.Fullscreen(true);
+			window.SetFullScreen(true);
+		} else {
+			if (UserSettings.GetBoolean("window.fullscreen")) { window.SetFullScreen(UserSettings.GetBoolean("window.fullscreen")); } 
 		}
 		
+		window.Process();
+		RenderObjects.SetColor(40);
+		RenderObjects.DrawRect(0, 0, window.CanvasWidth(), window.CanvasHeight(), 0);
+		window.Render(true);
+				
 		if (!UserSettings.Exists("window.theme")) {
 			UserSettings.SetInt("window.theme",0);
 		}
@@ -110,9 +116,15 @@ public class MainProcess extends Process {
 		window.TextureEngine().Update();
 		window.Process();
 		
+		if (window.drawToWindow > 0) {
+			RenderObjects.SetColor(40);
+			RenderObjects.DrawRect(0, 0, window.CanvasWidth(), window.CanvasHeight(), 0);
+		}
+		
 		if (window.KeyboardInput().IsPressed(300)) {
-			UserSettings.SetBoolean("window.fullscreen",!window.fullscreen);
-			window.Fullscreen(!window.fullscreen);
+			window.SetFullScreen(!window.InBorderLess());
+			UserSettings.SetBoolean("window.fullscreen",window.NotWindowed());
+
 		}
 		
 		elm.Update();
