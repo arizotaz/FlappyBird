@@ -1,6 +1,5 @@
 package com.arizotaz.flappybird.game;
 
-import com.arizotaz.flappybird.MainProcess;
 import com.arizotaz.gameacc.BoxCollider2D;
 import com.arizotaz.gameacc.KeyManager;
 import com.arizotaz.lotus.Lotus;
@@ -36,9 +35,9 @@ public class Bird {
 	
 	private boolean freed = false;
 	
-	public Bird() {
+	public Bird(MainProcess process) {
 		//Store the flappybird host process
-		process = (MainProcess) Lotus.singleton.ProcessManager().GetCurrentProces();
+		this.process = process;
 		
 		//Grab the current window
 		window = Lotus.singleton.WindowManager().GetCurrentWindow();

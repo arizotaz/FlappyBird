@@ -10,7 +10,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Lotus.UI"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/LWJGL"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/simple-json"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Lotus.GameAccessories"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Lotus.Theme.Windows98"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lotus.game.accessories"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

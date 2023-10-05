@@ -1,7 +1,7 @@
 package com.arizotaz.flappybird.menus;
 
-import com.arizotaz.flappybird.MainProcess;
 import com.arizotaz.flappybird.game.Game;
+import com.arizotaz.flappybird.game.MainProcess;
 import com.arizotaz.lotus.Lotus;
 import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.Text;
@@ -25,10 +25,13 @@ public class LoseMenu extends Menu {
 	
 	int highscore;
 	
+	public LoseMenu(MainProcess process) {
+		this.process = process;
+	}
+	
 	@Override
 	public void Open() {
 		this.window = Lotus.singleton.WindowManager().GetCurrentWindow();
-		process = (MainProcess) Lotus.singleton.ProcessManager().GetCurrentProces();
 		
 		elm = process.ElementRenderer();
 		game = process.Game();

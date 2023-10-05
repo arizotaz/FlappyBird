@@ -2,7 +2,6 @@ package com.arizotaz.flappybird.game;
 
 import java.util.ArrayList;
 
-import com.arizotaz.flappybird.MainProcess;
 import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.Text;
 import com.arizotaz.lotus.UserSettings;
@@ -33,7 +32,7 @@ public class Game {
 	}
 	
 	public void Reset() {
-		bird = new Bird();
+		bird = new Bird(process);
 		renderScaling = 0;
 		parallax = 0;
 		xDistance = 0;
@@ -67,7 +66,7 @@ public class Game {
 		
 		while (pipes.size() < 10) {
 			float y = Tools.ClampVar((float) (Math.random()*7+3), 3, 10);
-			pipes.add(new Pipe(pipeX,y,(float) (Math.random()*3+3)));
+			pipes.add(new Pipe(process, pipeX,y,(float) (Math.random()*3+3)));
 			pipeX += 8;
 		}
 		

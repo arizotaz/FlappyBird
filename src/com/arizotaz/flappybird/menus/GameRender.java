@@ -1,7 +1,7 @@
 package com.arizotaz.flappybird.menus;
 
-import com.arizotaz.flappybird.MainProcess;
 import com.arizotaz.flappybird.game.Game;
+import com.arizotaz.flappybird.game.MainProcess;
 import com.arizotaz.lotus.Lotus;
 import com.arizotaz.lotus.ui.Menu;
 import com.arizotaz.lotus.window.Window;
@@ -12,11 +12,12 @@ public class GameRender extends Menu {
 	MainProcess process;
 	Game game;
 	
-	
+	public GameRender(MainProcess process) {
+		this.process = process;
+	}
 	@Override
 	public void Open() {
 		this.window = Lotus.singleton.WindowManager().GetCurrentWindow();
-		process = (MainProcess) Lotus.singleton.ProcessManager().GetCurrentProces();
 		
 		process.ElementRenderer().ClearCycle();
 

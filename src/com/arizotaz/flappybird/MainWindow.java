@@ -1,38 +1,24 @@
 package com.arizotaz.flappybird;
 
-import java.io.File;
-
 import com.arizotaz.flappybird.decor.FlappyBirdWindowTheme;
 import com.arizotaz.flappybird.game.Game;
-import com.arizotaz.flappybird.menus.GameRender;
-import com.arizotaz.flappybird.menus.LoseMenu;
-import com.arizotaz.flappybird.menus.MainMenu;
+import com.arizotaz.flappybird.game.MainProcess;
 import com.arizotaz.gameacc.KeyManager;
-import com.arizotaz.lotus.Font;
 import com.arizotaz.lotus.Lotus;
 import com.arizotaz.lotus.RenderObjects;
-import com.arizotaz.lotus.Text;
 import com.arizotaz.lotus.UserSettings;
 import com.arizotaz.lotus.managers.WindowManager;
 import com.arizotaz.lotus.struc.Process;
-import com.arizotaz.lotus.texture.TextureEngine;
 import com.arizotaz.lotus.theme.windows98.Windows98Theme;
 import com.arizotaz.lotus.ui.MenuManager;
 import com.arizotaz.lotus.ui.elements.Element;
 import com.arizotaz.lotus.ui.elements.ElementRenderer;
 import com.arizotaz.lotus.window.Window;
 
-public class MainProcess extends Process {
+public class MainWindow extends Process {
 
 	private Window window;
-	private Game game;
-	private KeyManager keyManager;
-	
-	
-	
-	private ElementRenderer elm;
-	private MenuManager ui;
-	
+	private MainProcess main;
 	
 	@Override
 	public void Start() {
@@ -77,36 +63,7 @@ public class MainProcess extends Process {
 		}
 				
 		//window.SetTheme(new Windows98Theme(window));
-		TextureEngine.AddToGlobalList("background", "com/arizotaz/flappybird/assets/background.png");
-		TextureEngine.AddToGlobalList("bird", "com/arizotaz/flappybird/assets/bird.png");
-		TextureEngine.AddToGlobalList("pipe", "com/arizotaz/flappybird/assets/pipe_up.png");
-		TextureEngine.AddToGlobalList("pipe_button", "com/arizotaz/flappybird/assets/pipe_button.png");
-				
-		keyManager = new KeyManager(window);
-		
-		File file = new File(new File("").getAbsolutePath()+"/keys");
-		if (file.exists()) {
-			keyManager.LoadFromFile(file);
-		} else {
-			keyManager.RegisterKey("bird.jump", 32);//Space
-			keyManager.RegisterKey("bird.jump", 87);//W
-			keyManager.RegisterKey("bird.jump", 265);//Up Arrrow
-			keyManager.SaveToFile(file);
-		}
-		
-		elm = new ElementRenderer();
-		
-		ui = new MenuManager(window);
-		ui.AddMenu(0, new MainMenu());
-		ui.AddMenu(10, new GameRender());
-		ui.AddMenu(15, new LoseMenu());
-
-		
-		Font pixels = new Font("pixels");
-		pixels.ImportLocal("com/arizotaz/lotus/resources/fonts/pixels.json");
-		Text.defaultFont = pixels.Name();
-	
-		game = new Game(window,this);
+		main = new MainProcess(window);
 	}
 
 	@Override
@@ -121,22 +78,11 @@ public class MainProcess extends Process {
 			RenderObjects.DrawRect(0, 0, window.CanvasWidth(), window.CanvasHeight(), 0);
 		}
 		
-		if (window.KeyboardInput().IsPressed(300)) {
-			window.SetFullScreen(!window.InBorderLess());
-			UserSettings.SetBoolean("window.fullscreen",window.NotWindowed());
-
-		}
-		
-		elm.Update();
-		ui.Update();
-		elm.Interact();
-		
-		ui.Render();
-		elm.Render();
-		
-		ui.Events();
+		main.Update();
+		main.Render();
+		main.Events();
 				
-		window.Render(elm.HasChanged());
+		window.Render(main.ElementRenderer().HasChanged());
 		if (window.WantsToClose()) {
 			this.QuitProcess();
 		}
@@ -144,23 +90,8 @@ public class MainProcess extends Process {
 	
 	@Override
 	public void Exit() {
+		main.Exit();
 		window.CleanUp();
-	}
-	
-	public KeyManager KeyManager() {
-		return this.keyManager;
-	}
-
-	public Game Game() {
-		return game;
-	}
-	
-	public ElementRenderer ElementRenderer() {
-		return this.elm;
-	}
-
-	public MenuManager MenuManager() {
-		return this.ui;
 	}
 	
 }

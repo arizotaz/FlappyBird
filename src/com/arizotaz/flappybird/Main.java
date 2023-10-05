@@ -22,7 +22,7 @@ public class Main {
 		lotus.Init();
 		
 		//AddProcess
-		lotus.AddProcess(new MainProcess());
+		lotus.AddProcess(new MainWindow());
 		
 		//Start
 		lotus.Start();
