@@ -1,19 +1,16 @@
 package com.arizotaz.flappybird;
 
 import com.arizotaz.flappybird.decor.FlappyBirdWindowTheme;
-import com.arizotaz.flappybird.game.Game;
 import com.arizotaz.flappybird.game.MainProcess;
-import com.arizotaz.gameacc.KeyManager;
 import com.arizotaz.lotus.Lotus;
 import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.UserSettings;
 import com.arizotaz.lotus.managers.WindowManager;
 import com.arizotaz.lotus.struc.Process;
 import com.arizotaz.lotus.theme.windows98.Windows98Theme;
-import com.arizotaz.lotus.ui.MenuManager;
 import com.arizotaz.lotus.ui.elements.Element;
-import com.arizotaz.lotus.ui.elements.ElementRenderer;
 import com.arizotaz.lotus.window.Window;
+import com.arizotaz.lotus.window.theme.abyss.AbyssWindowTheme;
 
 public class MainWindow extends Process {
 
@@ -52,7 +49,9 @@ public class MainWindow extends Process {
 		case 1:
 			window.SetTheme(new Windows98Theme(window));
 			break;
-		
+		case 2:
+			window.SetTheme(new AbyssWindowTheme(window));
+			break;
 		}
 				
 		try {

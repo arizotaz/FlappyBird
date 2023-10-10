@@ -153,6 +153,7 @@ public class MainMenu extends Menu {
 				CreatePage();
 				UserSettings.SetInt("window.theme", 1);
 			}
+			
 			if (closeOptions.Clicked()) {
 				ToggleOptionsMenu();
 			}

@@ -77,7 +77,7 @@ public class LoseMenu extends Menu {
 	public void CreatePage() {
 		elm.ClearCycle();
 		
-		float renderScale = window.Width()/30;
+		float renderScale = window.CanvasWidth()/30;
 				
 		Text text;
 		
