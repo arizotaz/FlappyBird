@@ -74,8 +74,8 @@ public class Game {
 	public void Render() {
 		RenderObjects.SetColor(255);
 		int bgsize = 512;
-		if (TextureEngine.GetGlobalTexture("backgrouund") != null) {
-			bgsize = TextureEngine.GetGlobalTexture("backgrouund").Width();
+		if (window.TextureEngine().GetTexture("backgrouund") != null) {
+			bgsize = window.TextureEngine().GetTexture("backgrouund").Width();
 		}
 		RenderObjects.DrawImageFromSheet("background",0, 0, window.CanvasWidth(), window.CanvasHeight(), parallax, 0, 1, bgsize, 0);
 		

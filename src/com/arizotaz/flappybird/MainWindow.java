@@ -7,7 +7,7 @@ import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.UserSettings;
 import com.arizotaz.lotus.managers.WindowManager;
 import com.arizotaz.lotus.struc.Process;
-import com.arizotaz.lotus.theme.windows98.Windows98Theme;
+import com.arizotaz.lotus.theme.windows98.Windows98WindowTheme;
 import com.arizotaz.lotus.ui.elements.Element;
 import com.arizotaz.lotus.window.Window;
 import com.arizotaz.lotus.window.theme.abyss.AbyssWindowTheme;
@@ -47,7 +47,7 @@ public class MainWindow extends Process {
 			window.SetTheme(new FlappyBirdWindowTheme(window));
 			break;
 		case 1:
-			window.SetTheme(new Windows98Theme(window));
+			window.SetTheme(new Windows98WindowTheme(window));
 			break;
 		case 2:
 			window.SetTheme(new AbyssWindowTheme(window));

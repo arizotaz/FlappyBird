@@ -7,7 +7,7 @@ import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.Text;
 import com.arizotaz.lotus.UserSettings;
 import com.arizotaz.lotus.texture.Texture;
-import com.arizotaz.lotus.theme.windows98.Windows98Theme;
+import com.arizotaz.lotus.theme.windows98.Windows98WindowTheme;
 import com.arizotaz.lotus.ui.Menu;
 import com.arizotaz.lotus.ui.elements.Button;
 import com.arizotaz.lotus.ui.elements.Element;
@@ -149,7 +149,7 @@ public class MainMenu extends Menu {
 			}
 			if (win98Theme.Clicked()) {
 				window.SetWindowSize((int)window.Width(), (int)window.Height()+50);
-				window.SetTheme(new Windows98Theme(window));
+				window.SetTheme(new Windows98WindowTheme(window));
 				CreatePage();
 				UserSettings.SetInt("window.theme", 1);
 			}
