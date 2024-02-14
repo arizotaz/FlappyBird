@@ -109,8 +109,8 @@ public class Bird {
 	public void Render() {
 		
 		//RenderBird
-		RenderObjects.SetColor(255);
-		RenderObjects.DrawImage("bird", collider.x()*game.RenderScale(), collider.y()*game.RenderScale(), collider.w()*game.RenderScale(), collider.h()*game.RenderScale(), Rotation(), false, true);
+		window.RenderObjects().SetColor(255);
+		window.RenderObjects().DrawImage("bird", collider.x()*game.RenderScale(), collider.y()*game.RenderScale(), collider.w()*game.RenderScale(), collider.h()*game.RenderScale(), Rotation(), true);
 	}
 	
 	//Get the render rotation of the bird

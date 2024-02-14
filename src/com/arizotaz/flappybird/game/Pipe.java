@@ -60,13 +60,13 @@ public class Pipe {
 	public void Render() {
 		float pipeWidth = 2,pipeHeight = 10;
 		
-		RenderObjects.SetColor(255);
+		window.RenderObjects().SetColor(255);
 		
 		//Top Pipe
-		RenderObjects.DrawImage("pipe", (x-game.xDistance())*game.RenderScale(), (y+pipeHeight/2+mouthSize/2)*game.RenderScale(), pipeWidth*game.RenderScale(), pipeHeight*game.RenderScale(), 180, false, true);
+		window.RenderObjects().DrawImage("pipe", (x-game.xDistance())*game.RenderScale(), (y+pipeHeight/2+mouthSize/2)*game.RenderScale(), pipeWidth*game.RenderScale(), pipeHeight*game.RenderScale(), 180, true);
 		
 		//Bottom Pipe
-		RenderObjects.DrawImage("pipe", (x-game.xDistance())*game.RenderScale(), (y-pipeHeight/2-mouthSize/2)*game.RenderScale(), pipeWidth*game.RenderScale(), pipeHeight*game.RenderScale(), 0, false, true);
+		window.RenderObjects().DrawImage("pipe", (x-game.xDistance())*game.RenderScale(), (y-pipeHeight/2-mouthSize/2)*game.RenderScale(), pipeWidth*game.RenderScale(), pipeHeight*game.RenderScale(), 0, true);
 
 	}
 	

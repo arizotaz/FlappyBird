@@ -3,8 +3,8 @@ package com.arizotaz.flappybird;
 import com.arizotaz.flappybird.decor.FlappyBirdWindowTheme;
 import com.arizotaz.flappybird.game.MainProcess;
 import com.arizotaz.lotus.Lotus;
-import com.arizotaz.lotus.RenderObjects;
 import com.arizotaz.lotus.UserSettings;
+import com.arizotaz.lotus.LSDT.LotusSystemDebugTool;
 import com.arizotaz.lotus.managers.WindowManager;
 import com.arizotaz.lotus.struc.Process;
 import com.arizotaz.lotus.theme.windows98.Windows98WindowTheme;
@@ -24,6 +24,8 @@ public class MainWindow extends Process {
 		window.Init();
 		Element.CreateWindowParms();
 		window.IdleFps(15);
+		window.LimitFPS(165);
+
 		
 		
 		
@@ -34,8 +36,8 @@ public class MainWindow extends Process {
 		}
 		
 		window.Process();
-		RenderObjects.SetColor(40);
-		RenderObjects.DrawRect(0, 0, window.CanvasWidth(), window.CanvasHeight(), 0);
+		window.RenderObjects().SetColor(40);
+		window.RenderObjects().DrawRect(0, 0, window.CanvasWidth(), window.CanvasHeight(), 0);
 		window.Render(true);
 				
 		if (!UserSettings.Exists("window.theme")) {
@@ -63,6 +65,9 @@ public class MainWindow extends Process {
 				
 		//window.SetTheme(new Windows98Theme(window));
 		main = new MainProcess(window);
+		
+		
+		Lotus.singleton.AddProcess(new LotusSystemDebugTool());
 	}
 
 	@Override
@@ -73,8 +78,8 @@ public class MainWindow extends Process {
 		window.Process();
 		
 		if (window.drawToWindow > 0) {
-			RenderObjects.SetColor(40);
-			RenderObjects.DrawRect(0, 0, window.CanvasWidth(), window.CanvasHeight(), 0);
+			window.RenderObjects().SetColor(40);
+			window.RenderObjects().DrawRect(0, 0, window.CanvasWidth(), window.CanvasHeight(), 0);
 		}
 		
 		main.Update();

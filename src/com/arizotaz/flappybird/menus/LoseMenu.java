@@ -53,10 +53,10 @@ public class LoseMenu extends Menu {
 		Texture tex = window.TextureEngine().GetTexture("background");
 		if (tex != null && tex.GLCreated()) {
 			float ratio = ((float)tex.Width())/((float)tex.Height());
-			RenderObjects.SetColor(255);
-			RenderObjects.DrawImage("background",0, 0, window.CanvasHeight()*ratio, window.CanvasHeight(),0);
+			window.RenderObjects().SetColor(255);
+			window.RenderObjects().DrawImage("background",0, 0, window.CanvasHeight()*ratio, window.CanvasHeight(),0);
 		} else {
-			RenderObjects.DrawImage("background",0, 0, 0,0,0);
+			window.RenderObjects().DrawImage("background",0, 0, 0,0,0);
 		}
 	}
 

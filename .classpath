@@ -13,5 +13,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Lotus.GameAccessories"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Lotus.Theme.Windows98"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Lotus.Theme.Abyss"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Lotus.Debug.Tool"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -16,8 +16,8 @@ public class FlappyBirdButton extends Button {
 	public void Render() {
 		float padding = this.window.RenderScale()*(height/6);
 		
-		RenderObjects.SetColor(255);
-		RenderObjects.DrawImage("pipe_button", x, y, width + (multiplier*(width/10)), height, 0, false, true);
+		window.RenderObjects().SetColor(255);
+		window.RenderObjects().DrawImage("pipe_button", x, y, width + (multiplier*(width/10)), height, 0, true);
 		
 		if (this.IsHovering()) {
 			multiplier += window.Time().DeltaTime()/100;
